@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { LayoutDashboard, BookOpen, BarChart3, User, HelpCircle, LogOut, Menu, X, Shield } from "lucide-react";
+import hubLogo from "@/assets/hub-logo.png";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { isAdmin } from "@/lib/supabase-helpers";
@@ -30,10 +31,8 @@ export const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children })
       {/* Desktop Sidebar */}
       <aside className="hidden lg:flex w-64 flex-col border-r border-border bg-card p-6">
         <Link to="/dashboard" className="mb-8 flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-            <BookOpen className="h-5 w-5 text-primary-foreground" />
-          </div>
-          <span className="font-display text-xl font-bold text-foreground">EduPro</span>
+          <img src={hubLogo} alt="Hub Negócios Digitais" className="h-10 w-10 rounded-lg object-cover" />
+          <span className="font-display text-sm font-bold leading-tight text-foreground">Hub Negócios<br/>Digitais</span>
         </Link>
         <nav className="flex flex-1 flex-col gap-1">
           {navItems.map(item => (
@@ -74,10 +73,8 @@ export const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children })
       <div className="flex flex-1 flex-col">
         <header className="flex items-center justify-between border-b border-border bg-card px-4 py-3 lg:hidden">
           <Link to="/dashboard" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-              <BookOpen className="h-4 w-4 text-primary-foreground" />
-            </div>
-            <span className="font-display text-lg font-bold text-foreground">EduPro</span>
+            <img src={hubLogo} alt="Hub Negócios Digitais" className="h-8 w-8 rounded-lg object-cover" />
+            <span className="font-display text-sm font-bold leading-tight text-foreground">Hub Negócios Digitais</span>
           </Link>
           <Button variant="ghost" size="icon" onClick={() => setMobileOpen(!mobileOpen)}>
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}

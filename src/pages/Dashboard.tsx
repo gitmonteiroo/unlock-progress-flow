@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { AppLayout } from "@/components/AppLayout";
-import { getUserProfile, getUserCourses, getAllCourses } from "@/lib/supabase-helpers";
+import { getUserProfile, getUserCourses, getAllCourses, isAdmin } from "@/lib/supabase-helpers";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -14,6 +14,7 @@ const Dashboard = () => {
   const [userCourses, setUserCourses] = useState<any[]>([]);
   const [allCourses, setAllCourses] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [userIsAdmin, setUserIsAdmin] = useState(false);
 
   useEffect(() => {
     if (!user) return;
@@ -21,10 +22,12 @@ const Dashboard = () => {
       getUserProfile(user.id),
       getUserCourses(user.id),
       getAllCourses(),
-    ]).then(([p, uc, ac]) => {
+      isAdmin(user.id),
+    ]).then(([p, uc, ac, admin]) => {
       setProfile(p);
       setUserCourses(uc);
       setAllCourses(ac);
+      setUserIsAdmin(admin);
       setLoading(false);
     });
   }, [user]);
@@ -47,9 +50,13 @@ const Dashboard = () => {
         {/* Welcome */}
         <div>
           <h1 className="font-display text-2xl font-bold text-foreground md:text-3xl">
-            Olá, {profile?.full_name || "Aluno"}! 👋
+            Olá, {profile?.full_name || (userIsAdmin ? "Administrador" : "Aluno")}! 👋
           </h1>
-          <p className="mt-1 text-muted-foreground">Continue de onde parou e avance na sua jornada.</p>
+          <p className="mt-1 text-muted-foreground">
+            {userIsAdmin
+              ? "Gerencie cursos, módulos e acompanhe o desempenho da plataforma."
+              : "Continue de onde parou e avance na sua jornada."}
+          </p>
         </div>
 
         {/* Stats */}
