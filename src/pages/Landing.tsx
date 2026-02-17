@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { BookOpen, CheckCircle, Zap, TrendingUp, Shield } from "lucide-react";
+import { CheckCircle, Zap, TrendingUp, Shield } from "lucide-react";
+import hubLogo from "@/assets/hub-logo.png";
 
 const Landing = () => {
   return (
@@ -9,17 +10,15 @@ const Landing = () => {
       <header className="border-b border-border">
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
           <div className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-              <BookOpen className="h-5 w-5 text-primary-foreground" />
-            </div>
-            <span className="font-display text-xl font-bold text-foreground">EduPro</span>
+            <img src={hubLogo} alt="Hub Negócios Digitais" className="h-9 w-9 rounded-lg object-cover" />
+            <span className="font-display text-xl font-bold text-foreground">Hub Negócios Digitais</span>
           </div>
           <div className="flex items-center gap-3">
             <Link to="/login">
-              <Button variant="ghost">Entrar</Button>
+              <Button variant="outline" size="lg" className="font-semibold">Entrar</Button>
             </Link>
             <Link to="/signup">
-              <Button>Criar Conta</Button>
+              <Button size="lg" className="font-semibold">Criar Conta</Button>
             </Link>
           </div>
         </div>
@@ -101,7 +100,7 @@ const Landing = () => {
       {/* Footer */}
       <footer className="border-t border-border py-8">
         <div className="container mx-auto flex flex-col items-center gap-4 px-4 text-sm text-muted-foreground md:flex-row md:justify-between">
-          <span>© 2026 EduPro. Todos os direitos reservados.</span>
+          <span>© 2026 Hub Negócios Digitais. Todos os direitos reservados.</span>
           <div className="flex gap-6">
             <Link to="/terms" className="hover:text-foreground">Termos de Uso</Link>
             <Link to="/privacy" className="hover:text-foreground">Política de Privacidade</Link>
