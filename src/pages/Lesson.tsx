@@ -5,7 +5,7 @@ import { AppLayout } from "@/components/AppLayout";
 import { supabase } from "@/integrations/supabase/client";
 import { markLessonComplete, getLessonProgress } from "@/lib/supabase-helpers";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, ArrowRight, ArrowLeft } from "lucide-react";
+import { CheckCircle, ArrowRight, ArrowLeft, FileDown } from "lucide-react";
 import { toast } from "sonner";
 
 const Lesson = () => {
@@ -106,6 +106,22 @@ const Lesson = () => {
             <span className="text-sm text-muted-foreground">{lesson.duration_minutes} minutos</span>
           )}
         </div>
+
+        {/* PDF Download */}
+        {lesson.pdf_url && (
+          <div className="mb-6 flex items-center gap-3 rounded-lg border border-border bg-card p-4">
+            <FileDown className="h-6 w-6 text-primary" />
+            <div className="flex-1">
+              <p className="text-sm font-medium text-foreground">Material complementar (eBook)</p>
+              <p className="text-xs text-muted-foreground">PDF disponível para download</p>
+            </div>
+            <Button variant="outline" size="sm" asChild>
+              <a href={lesson.pdf_url} target="_blank" rel="noopener noreferrer" download>
+                Baixar PDF
+              </a>
+            </Button>
+          </div>
+        )}
 
         {/* Actions */}
         <div className="flex flex-wrap items-center gap-3">
