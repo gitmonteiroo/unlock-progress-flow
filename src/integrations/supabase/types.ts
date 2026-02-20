@@ -91,6 +91,7 @@ export type Database = {
           duration_minutes: number | null
           id: string
           module_id: string
+          pdf_url: string | null
           sort_order: number
           title: string
           video_url: string
@@ -100,6 +101,7 @@ export type Database = {
           duration_minutes?: number | null
           id?: string
           module_id: string
+          pdf_url?: string | null
           sort_order?: number
           title: string
           video_url?: string
@@ -109,6 +111,7 @@ export type Database = {
           duration_minutes?: number | null
           id?: string
           module_id?: string
+          pdf_url?: string | null
           sort_order?: number
           title?: string
           video_url?: string
