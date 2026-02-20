@@ -33,7 +33,7 @@ const Dashboard = () => {
       setUserIsAdmin(admin);
       setLoading(false);
 
-      // Calculate progress for the first purchased course
+      // Find the current course: first purchased, or the entry course
       if (uc.length > 0) {
         const firstCourse = uc[0];
         const courseData = ac.find((c: any) => c.id === firstCourse.course_id);
@@ -47,6 +47,12 @@ const Dashboard = () => {
             setCurrentCourseProgress(Math.round((completed / allLessonIds.length) * 100));
           });
         });
+      } else {
+        // Show the entry course as the featured course
+        const entryCourse = ac.find((c: any) => c.is_entry_course);
+        if (entryCourse) {
+          setCurrentCourse(entryCourse);
+        }
       }
     });
   }, [user]);
@@ -105,9 +111,9 @@ const Dashboard = () => {
                   <Progress value={currentCourseProgress} className="h-3" />
                 </div>
                 <p className="text-sm text-muted-foreground">Este é o seu ponto de partida</p>
-                <Link to={`/course/${currentCourse.id}`}>
+                <Link to={purchasedIds.has(currentCourse.id) ? `/course/${currentCourse.id}` : `/unlock/${currentCourse.id}`}>
                   <Button size="lg" className="w-full md:w-auto">
-                    <Play className="mr-2 h-4 w-4" /> Continuar curso
+                    <Play className="mr-2 h-4 w-4" /> {purchasedIds.has(currentCourse.id) ? "Continuar curso" : `Começar por R$${Number(currentCourse.price).toFixed(2).replace('.', ',')}`}
                   </Button>
                 </Link>
               </div>
