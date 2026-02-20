@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { AppLayout } from "@/components/AppLayout";
-import { getUserProfile, getUserCourses, getAllCourses, isAdmin } from "@/lib/supabase-helpers";
+import { getUserProfile, getUserCourses, getAllCourses, isAdmin, getLessonProgress, getCourseWithModules } from "@/lib/supabase-helpers";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { BookOpen, Lock, Play, Trophy } from "lucide-react";
+import { BookOpen, Lock, Play, Trophy, GraduationCap } from "lucide-react";
+import negocioDigitalCover from "@/assets/negocio-digital-cover.png";
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -15,6 +16,8 @@ const Dashboard = () => {
   const [allCourses, setAllCourses] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [userIsAdmin, setUserIsAdmin] = useState(false);
+  const [currentCourseProgress, setCurrentCourseProgress] = useState(0);
+  const [currentCourse, setCurrentCourse] = useState<any>(null);
 
   useEffect(() => {
     if (!user) return;
@@ -29,6 +32,22 @@ const Dashboard = () => {
       setAllCourses(ac);
       setUserIsAdmin(admin);
       setLoading(false);
+
+      // Calculate progress for the first purchased course
+      if (uc.length > 0) {
+        const firstCourse = uc[0];
+        const courseData = ac.find((c: any) => c.id === firstCourse.course_id);
+        setCurrentCourse(courseData);
+
+        getCourseWithModules(firstCourse.course_id).then(({ modules }) => {
+          const allLessonIds = modules.flatMap((m: any) => (m.lessons || []).map((l: any) => l.id));
+          if (allLessonIds.length === 0) return;
+          getLessonProgress(user.id, allLessonIds).then((progress) => {
+            const completed = progress.filter((p: any) => p.completed).length;
+            setCurrentCourseProgress(Math.round((completed / allLessonIds.length) * 100));
+          });
+        });
+      }
     });
   }, [user]);
 
@@ -58,6 +77,43 @@ const Dashboard = () => {
               : "Continue de onde parou e avance na sua jornada."}
           </p>
         </div>
+
+        {/* BLOCO 1 — Curso Atual */}
+        {currentCourse && (
+          <Card className="overflow-hidden border-primary/20 bg-card">
+            <div className="flex flex-col md:flex-row">
+              <div className="flex-shrink-0 md:w-48">
+                <img
+                  src={currentCourse.image_url || negocioDigitalCover}
+                  alt={currentCourse.title}
+                  className="h-48 w-full object-cover md:h-full"
+                />
+              </div>
+              <div className="flex flex-1 flex-col justify-center gap-4 p-6">
+                <div className="flex items-center gap-2 text-primary">
+                  <GraduationCap className="h-5 w-5" />
+                  <span className="text-sm font-semibold uppercase tracking-wide">Curso Atual</span>
+                </div>
+                <h2 className="font-display text-xl font-bold text-foreground md:text-2xl">
+                  {currentCourse.title}
+                </h2>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground">Progresso</span>
+                    <span className="font-semibold text-primary">{currentCourseProgress}%</span>
+                  </div>
+                  <Progress value={currentCourseProgress} className="h-3" />
+                </div>
+                <p className="text-sm text-muted-foreground">Este é o seu ponto de partida</p>
+                <Link to={`/course/${currentCourse.id}`}>
+                  <Button size="lg" className="w-full md:w-auto">
+                    <Play className="mr-2 h-4 w-4" /> Continuar curso
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </Card>
+        )}
 
         {/* Stats */}
         <div className="grid gap-4 md:grid-cols-3">
