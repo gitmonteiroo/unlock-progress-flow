@@ -36,11 +36,11 @@ const Landing = () => {
             <span className="text-primary">resultado real</span>
           </h1>
           <p className="mb-8 text-lg text-muted-foreground md:text-xl">
-            Acesse cursos práticos e objetivos por apenas R$11,90 e comece a construir seu negócio digital do zero.
+            Acesse cursos práticos e objetivos por apenas R$7,90 e comece a construir seu negócio digital do zero.
           </p>
           <Link to="/signup">
             <Button size="lg" className="h-14 px-10 text-lg font-semibold">
-              Começar por R$11,90
+              Começar por R$7,90
             </Button>
           </Link>
         </div>
@@ -87,7 +87,7 @@ const Landing = () => {
           </ul>
           <div className="flex items-center justify-between">
             <div>
-              <span className="font-display text-3xl font-bold text-foreground">R$11,90</span>
+              <span className="font-display text-3xl font-bold text-foreground">R$7,90</span>
               <span className="ml-2 text-sm text-muted-foreground">acesso vitalício</span>
             </div>
             <Link to="/signup">
