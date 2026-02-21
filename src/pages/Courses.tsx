@@ -17,7 +17,7 @@ import bannerHobbies from "@/assets/banner-hobbies.jpg";
 const courseBannerMap: Record<string, string> = {
   "Negócio Digital na Prática": negocioDigitalBanner,
   "Organização Financeira do Zero": bannerFinanceiro,
-  "Sistema de Alta Produtividade Digital": bannerProdutividade,
+  "Carreira Acelerada": bannerProdutividade,
   "Desbloqueio de Conteúdos Avançados": bannerAvancado,
   "Relacionamentos Conscientes": bannerEmocional,
   "Marketing Prático para Negócios Locais": bannerMarketing,
