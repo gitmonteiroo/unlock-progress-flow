@@ -52,7 +52,7 @@ const Dashboard = () => {
       setUserIsAdmin(admin);
       setLoading(false);
 
-      // Find the current course: first purchased, or the entry course
+      // Only show current course if user has purchased courses
       if (uc.length > 0) {
         const firstCourse = uc[0];
         const courseData = ac.find((c: any) => c.id === firstCourse.course_id);
@@ -66,12 +66,6 @@ const Dashboard = () => {
             setCurrentCourseProgress(Math.round((completed / allLessonIds.length) * 100));
           });
         });
-      } else {
-        // Show the entry course as the featured course
-        const entryCourse = ac.find((c: any) => c.is_entry_course);
-        if (entryCourse) {
-          setCurrentCourse(entryCourse);
-        }
       }
     });
   }, [user]);
