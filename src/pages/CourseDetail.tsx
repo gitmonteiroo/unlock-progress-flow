@@ -170,7 +170,7 @@ const CourseDetail = () => {
                           <Link to="/upsell-avancado">
                             <Button size="sm" className="gap-2">
                               <Unlock className="h-4 w-4" />
-                              Desbloquear por R$47,00
+                              Desbloquear por R$37,00
                             </Button>
                           </Link>
                         </div>
