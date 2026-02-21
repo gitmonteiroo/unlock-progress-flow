@@ -120,9 +120,9 @@ const CourseDetail = () => {
 
           {/* Advanced Modules - Locked or Unlocked */}
           {advancedModules.length > 0 && (
-            <div className="mt-10">
+            <div className="mt-10 animate-fade-in">
               {/* Persuasive Header */}
-              <div className="relative mb-6 overflow-hidden rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 via-primary/10 to-accent/5 p-6 md:p-8">
+              <div className="relative mb-6 animate-scale-in overflow-hidden rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 via-primary/10 to-accent/5 p-6 md:p-8">
                 <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-primary/10 blur-2xl" />
                 <div className="absolute -bottom-4 -left-4 h-20 w-20 rounded-full bg-accent/10 blur-xl" />
                 <div className="relative">
