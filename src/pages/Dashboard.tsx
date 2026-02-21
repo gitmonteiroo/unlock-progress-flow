@@ -102,7 +102,7 @@ const Dashboard = () => {
           <Card className="relative overflow-hidden border-primary/20 bg-gradient-to-br from-primary/5 via-primary/10 to-accent/5">
             <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
             <div className="absolute -bottom-8 -left-8 h-32 w-32 rounded-full bg-accent/10 blur-2xl" />
-            <div className="relative flex flex-col gap-6 p-6 md:flex-row md:items-center md:p-10">
+            <div className="relative flex flex-col items-center gap-6 p-6 md:p-10">
               {/* Video */}
               <div className="w-full overflow-hidden rounded-xl shadow-lg md:w-1/2">
                 <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
