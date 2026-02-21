@@ -5,8 +5,26 @@ import { AppLayout } from "@/components/AppLayout";
 import { supabase } from "@/integrations/supabase/client";
 import { markLessonComplete, getLessonProgress, getUserCourses } from "@/lib/supabase-helpers";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, ArrowRight, ArrowLeft, FileDown, Sparkles, Unlock, Download, Image } from "lucide-react";
+import { CheckCircle, ArrowRight, ArrowLeft, FileDown, Sparkles, Unlock, Download, Image, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+
+const downloadFile = async (url: string, filename: string) => {
+  try {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = blobUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(blobUrl);
+  } catch {
+    // Fallback: open in new tab
+    window.open(url, '_blank');
+  }
+};
 
 const UPSELL_COURSE_ID = "2c9996cd-b0cb-4d9d-a3c3-acb6584bc0ab";
 const ENTRY_COURSE_ID = "776f38e4-90c0-42f1-9472-dd22469fda2a";
@@ -131,7 +149,7 @@ const Lesson = () => {
               <p className="text-sm font-medium text-foreground">Material complementar (eBook)</p>
               <p className="text-xs text-muted-foreground">PDF disponível para download</p>
             </div>
-            <Button variant="secondary" size="sm" onClick={() => window.open(lesson.pdf_url, '_blank')}>
+            <Button variant="secondary" size="sm" onClick={() => downloadFile(lesson.pdf_url, `${lesson.title}.pdf`)}>
                 Baixar PDF
             </Button>
           </div>
