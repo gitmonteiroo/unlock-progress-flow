@@ -6,7 +6,7 @@ import { getUserProfile, getUserCourses, getAllCourses, isAdmin, getLessonProgre
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { BookOpen, Lock, Play, Trophy, GraduationCap } from "lucide-react";
+import { BookOpen, Lock, Play, Trophy, GraduationCap, Rocket, Star } from "lucide-react";
 import negocioDigitalCover from "@/assets/negocio-digital-cover.png";
 import negocioDigitalBanner from "@/assets/negocio-digital-banner.png";
 import bannerFinanceiro from "@/assets/banner-financeiro.jpg";
@@ -96,6 +96,31 @@ const Dashboard = () => {
               : "Continue de onde parou e avance na sua jornada."}
           </p>
         </div>
+
+        {/* Welcome Card — only for students without courses */}
+        {!userIsAdmin && userCourses.length === 0 && (
+          <Card className="relative overflow-hidden border-primary/20 bg-gradient-to-br from-primary/5 via-primary/10 to-accent/5">
+            <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
+            <div className="absolute -bottom-8 -left-8 h-32 w-32 rounded-full bg-accent/10 blur-2xl" />
+            <div className="relative flex flex-col items-center gap-4 p-8 text-center md:p-10">
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/15">
+                <Rocket className="h-8 w-8 text-primary" />
+              </div>
+              <div>
+                <h2 className="mb-2 font-display text-xl font-bold text-foreground md:text-2xl">
+                  Seja bem-vindo(a) ao Hub Negócios Digitais! 🚀
+                </h2>
+                <p className="mx-auto max-w-md text-muted-foreground">
+                  Sua trilha de aprendizado começa agora! Explore os cursos abaixo e desbloqueie o conhecimento que vai transformar sua jornada.
+                </p>
+              </div>
+              <div className="mt-2 flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
+                <Star className="h-4 w-4" />
+                Escolha seu primeiro curso e comece hoje
+              </div>
+            </div>
+          </Card>
+        )}
 
         {/* BLOCO 1 — Curso Atual */}
         {currentCourse && (
