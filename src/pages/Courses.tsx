@@ -6,6 +6,7 @@ import { getUserCourses, getAllCourses } from "@/lib/supabase-helpers";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Lock, Play } from "lucide-react";
+import cursoNegocioDigitalBanner from "@/assets/curso-negocio-digital-banner.jpg";
 
 const Courses = () => {
   const { user } = useAuth();
@@ -39,8 +40,16 @@ const Courses = () => {
             const owned = purchasedIds.has(course.id);
             return (
               <Card key={course.id} className="group relative overflow-hidden border-border bg-card transition-all hover:border-primary/30">
-                <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-                <div className="relative p-6">
+                {/* Course Banner */}
+                <div className="relative h-40 w-full overflow-hidden">
+                  <img
+                    src={course.image_url || cursoNegocioDigitalBanner}
+                    alt={course.title}
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
+                </div>
+                <div className="relative p-6 pt-3">
                   <div className="mb-3 flex items-center gap-2">
                     {owned ? (
                       <span className="inline-flex items-center gap-1 rounded-full bg-success/10 px-2.5 py-0.5 text-xs font-medium text-success">
