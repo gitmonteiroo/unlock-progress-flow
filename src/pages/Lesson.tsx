@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate, Navigate } from "react-router-dom";
+import { useParams, useNavigate, Navigate, Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { AppLayout } from "@/components/AppLayout";
 import { supabase } from "@/integrations/supabase/client";
-import { markLessonComplete, getLessonProgress } from "@/lib/supabase-helpers";
+import { markLessonComplete, getLessonProgress, getUserCourses } from "@/lib/supabase-helpers";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, ArrowRight, ArrowLeft, FileDown } from "lucide-react";
+import { CheckCircle, ArrowRight, ArrowLeft, FileDown, Sparkles, Unlock } from "lucide-react";
 import { toast } from "sonner";
+
+const UPSELL_COURSE_ID = "2c9996cd-b0cb-4d9d-a3c3-acb6584bc0ab";
+const ENTRY_COURSE_ID = "776f38e4-90c0-42f1-9472-dd22469fda2a";
 
 const Lesson = () => {
   const { id } = useParams<{ id: string }>();
@@ -18,6 +21,8 @@ const Lesson = () => {
   const [completed, setCompleted] = useState(false);
   const [loading, setLoading] = useState(true);
   const [marking, setMarking] = useState(false);
+  const [showUpsell, setShowUpsell] = useState(false);
+  const [ownsUpsell, setOwnsUpsell] = useState(false);
 
   useEffect(() => {
     if (!user || !id) return;
@@ -48,6 +53,15 @@ const Lesson = () => {
     // Check progress
     const prog = await getLessonProgress(user!.id, [id!]);
     setCompleted(prog.some((p: any) => p.completed));
+
+    // Check if this is an entry course lesson and user doesn't own upsell
+    if (lessonData.module?.course_id === ENTRY_COURSE_ID) {
+      const uc = await getUserCourses(user!.id);
+      const hasUpsell = uc.some((u: any) => u.course_id === UPSELL_COURSE_ID);
+      setOwnsUpsell(hasUpsell);
+      if (!hasUpsell) setShowUpsell(true);
+    }
+
     setLoading(false);
   };
 
@@ -149,6 +163,33 @@ const Lesson = () => {
             </Button>
           )}
         </div>
+
+        {/* Upsell Banner */}
+        {showUpsell && !ownsUpsell && completed && (
+          <div className="mt-8 overflow-hidden rounded-xl border border-primary/20 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 p-6">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div className="flex items-start gap-3">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                  <Sparkles className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <h3 className="font-display text-base font-semibold text-foreground">
+                    Pronto para o próximo nível?
+                  </h3>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Desbloqueie templates profissionais e tráfego pago simplificado por apenas R$47,00.
+                  </p>
+                </div>
+              </div>
+              <Link to="/upsell-avancado">
+                <Button className="gap-2 whitespace-nowrap">
+                  <Unlock className="h-4 w-4" />
+                  Ver conteúdos avançados
+                </Button>
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </AppLayout>
   );

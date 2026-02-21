@@ -5,7 +5,10 @@ import { AppLayout } from "@/components/AppLayout";
 import { getCourseWithModules, getUserCourses, getLessonProgress } from "@/lib/supabase-helpers";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Circle, Play } from "lucide-react";
+import { CheckCircle, Circle, Play, Lock, Sparkles, Unlock } from "lucide-react";
+
+const UPSELL_COURSE_ID = "2c9996cd-b0cb-4d9d-a3c3-acb6584bc0ab";
+const ENTRY_COURSE_ID = "776f38e4-90c0-42f1-9472-dd22469fda2a";
 
 const CourseDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -15,6 +18,8 @@ const CourseDetail = () => {
   const [owned, setOwned] = useState(false);
   const [progress, setProgress] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [advancedModules, setAdvancedModules] = useState<any[]>([]);
+  const [ownsUpsell, setOwnsUpsell] = useState(false);
 
   useEffect(() => {
     if (!user || !id) return;
@@ -32,6 +37,15 @@ const CourseDetail = () => {
         const prog = await getLessonProgress(user.id, allLessonIds);
         setProgress(prog);
       }
+
+      // If this is the entry course, load advanced modules
+      if (id === ENTRY_COURSE_ID) {
+        const hasUpsell = uc.some((u: any) => u.course_id === UPSELL_COURSE_ID);
+        setOwnsUpsell(hasUpsell);
+        const { modules: advMods } = await getCourseWithModules(UPSELL_COURSE_ID);
+        setAdvancedModules(advMods);
+      }
+
       setLoading(false);
     });
   }, [user, id]);
@@ -101,6 +115,70 @@ const CourseDetail = () => {
           {modules.length === 0 && (
             <div className="rounded-lg border border-border bg-card p-8 text-center text-muted-foreground">
               Nenhum módulo disponível ainda. Em breve teremos conteúdo!
+            </div>
+          )}
+
+          {/* Advanced Modules - Locked or Unlocked */}
+          {advancedModules.length > 0 && (
+            <div className="mt-6">
+              <div className="mb-3 flex items-center gap-2">
+                <Sparkles className="h-4 w-4 text-primary" />
+                <h3 className="font-display text-base font-semibold text-foreground">
+                  Conteúdos Avançados
+                </h3>
+                {!ownsUpsell && (
+                  <span className="rounded-full bg-destructive/10 px-2.5 py-0.5 text-xs font-medium text-destructive">
+                    Bloqueado
+                  </span>
+                )}
+              </div>
+
+              {advancedModules.map((module: any, mi: number) => (
+                <Accordion key={module.id} type="single" collapsible>
+                  <AccordionItem value={module.id} className="rounded-lg border border-border bg-card px-4 mb-2">
+                    <AccordionTrigger className="font-display text-base font-semibold text-foreground hover:no-underline">
+                      <div className="flex items-center gap-2">
+                        {!ownsUpsell && <Lock className="h-4 w-4 text-muted-foreground" />}
+                        {module.title}
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <div className="space-y-1 pb-2">
+                        {(module.lessons || []).map((lesson: any, li: number) => (
+                          ownsUpsell ? (
+                            <Link
+                              key={lesson.id}
+                              to={`/lesson/${lesson.id}`}
+                              className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-muted"
+                            >
+                              <Circle className="h-4 w-4 shrink-0 text-muted-foreground" />
+                              <span className="text-foreground">{li + 1}. {lesson.title}</span>
+                            </Link>
+                          ) : (
+                            <div
+                              key={lesson.id}
+                              className="flex items-center gap-3 px-3 py-2.5 text-sm text-muted-foreground opacity-60"
+                            >
+                              <Lock className="h-3.5 w-3.5 shrink-0" />
+                              <span>{li + 1}. {lesson.title}</span>
+                            </div>
+                          )
+                        ))}
+                      </div>
+                      {!ownsUpsell && (
+                        <div className="pb-3">
+                          <Link to="/upsell-avancado">
+                            <Button size="sm" className="gap-2">
+                              <Unlock className="h-4 w-4" />
+                              Desbloquear por R$47,00
+                            </Button>
+                          </Link>
+                        </div>
+                      )}
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              ))}
             </div>
           )}
         </div>
