@@ -15,7 +15,7 @@ const Support = () => (
           <h3 className="mb-2 font-display text-lg font-semibold text-foreground">Email</h3>
           <p className="mb-4 text-sm text-muted-foreground">Envie sua dúvida e responderemos em até 24h.</p>
           <Button variant="outline" asChild>
-            <a href="mailto:suporte@edupro.com">suporte@edupro.com</a>
+            <a href="mailto:suportedelojaa@gmail.com">suportedelojaa@gmail.com</a>
           </Button>
         </Card>
         <Card className="border-border bg-card p-8 text-center">
