@@ -6,7 +6,7 @@ import { getUserProfile, getUserCourses, getAllCourses, isAdmin, getLessonProgre
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { BookOpen, Lock, Play, Trophy, GraduationCap, Rocket, Star } from "lucide-react";
+import { BookOpen, Lock, Play, Trophy, GraduationCap, Rocket, Star, Sparkles, Zap } from "lucide-react";
 import negocioDigitalCover from "@/assets/negocio-digital-cover.png";
 import negocioDigitalBanner from "@/assets/negocio-digital-banner.png";
 import bannerFinanceiro from "@/assets/banner-financeiro.jpg";
@@ -99,36 +99,58 @@ const Dashboard = () => {
 
         {/* Welcome Card — only for students without courses */}
         {!userIsAdmin && userCourses.length === 0 && (
-          <Card className="relative overflow-hidden border-primary/20 bg-gradient-to-br from-primary/5 via-primary/10 to-accent/5">
-            <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
-            <div className="absolute -bottom-8 -left-8 h-32 w-32 rounded-full bg-accent/10 blur-2xl" />
-            <div className="relative flex flex-col items-center gap-6 p-6 md:p-10">
+          <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-[hsl(262,83%,15%)] via-[hsl(262,60%,20%)] to-[hsl(280,70%,12%)]">
+            {/* Decorative elements */}
+            <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-[hsl(262,83%,58%,0.15)] blur-3xl" />
+            <div className="absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-[hsl(280,80%,50%,0.1)] blur-3xl" />
+            <div className="absolute right-10 top-10 h-20 w-20 rounded-full bg-[hsl(262,83%,58%,0.08)] blur-xl" />
+            <div className="absolute bottom-16 left-1/2 h-32 w-32 rounded-full bg-[hsl(200,80%,60%,0.06)] blur-2xl" />
+            
+            {/* Floating decorative icons */}
+            <div className="absolute left-6 top-6 flex h-10 w-10 items-center justify-center rounded-xl bg-[hsl(262,83%,58%,0.15)] backdrop-blur-sm">
+              <Sparkles className="h-5 w-5 text-[hsl(262,83%,75%)]" />
+            </div>
+            <div className="absolute bottom-6 right-6 flex h-10 w-10 items-center justify-center rounded-xl bg-[hsl(280,80%,60%,0.12)] backdrop-blur-sm">
+              <Zap className="h-5 w-5 text-[hsl(280,80%,70%)]" />
+            </div>
+            <div className="absolute right-20 top-8 h-2 w-2 rounded-full bg-[hsl(262,83%,70%,0.5)]" />
+            <div className="absolute bottom-12 left-20 h-3 w-3 rounded-full bg-[hsl(280,80%,65%,0.4)]" />
+            <div className="absolute left-1/3 top-12 h-1.5 w-1.5 rounded-full bg-[hsl(200,80%,70%,0.4)]" />
+
+            <div className="relative flex flex-col gap-8 p-8 md:flex-row md:items-center md:gap-10 md:p-12">
               {/* Video */}
-              <div className="w-full overflow-hidden rounded-xl shadow-lg md:w-1/2">
-                <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
-                  <iframe
-                    src="https://player.vimeo.com/video/1167023274?badge=0&autopause=0&player_id=0"
-                    className="absolute inset-0 h-full w-full rounded-xl"
-                    frameBorder="0"
-                    allow="autoplay; fullscreen; picture-in-picture"
-                    allowFullScreen
-                    title="Vídeo de boas-vindas"
-                  />
+              <div className="w-full md:w-[55%]">
+                <div className="overflow-hidden rounded-2xl ring-1 ring-[hsl(262,83%,58%,0.3)] shadow-[0_8px_40px_-12px_hsl(262,83%,58%,0.3)]">
+                  <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+                    <iframe
+                      src="https://player.vimeo.com/video/1167023274?badge=0&autopause=0&player_id=0"
+                      className="absolute inset-0 h-full w-full"
+                      frameBorder="0"
+                      allow="autoplay; fullscreen; picture-in-picture"
+                      allowFullScreen
+                      title="Vídeo de boas-vindas"
+                    />
+                  </div>
                 </div>
               </div>
+
               {/* Text */}
-              <div className="flex flex-1 flex-col items-center gap-4 text-center md:items-start md:text-left">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/15">
-                  <Rocket className="h-7 w-7 text-primary" />
+              <div className="flex flex-1 flex-col items-center gap-5 text-center md:items-start md:text-left">
+                <div className="inline-flex items-center gap-2 rounded-full bg-[hsl(262,83%,58%,0.2)] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[hsl(262,83%,80%)]">
+                  <Rocket className="h-3.5 w-3.5" />
+                  Sua jornada começa aqui
                 </div>
-                <h2 className="font-display text-xl font-bold text-foreground md:text-2xl">
-                  Seja bem-vindo(a) ao Hub Negócios Digitais! 🚀
+                <h2 className="font-display text-2xl font-bold leading-tight text-white md:text-3xl">
+                  Seja bem-vindo(a) ao<br />
+                  <span className="bg-gradient-to-r from-[hsl(262,83%,70%)] to-[hsl(280,80%,70%)] bg-clip-text text-transparent">
+                    Hub Negócios Digitais!
+                  </span>
                 </h2>
-                <p className="max-w-md text-muted-foreground">
+                <p className="max-w-sm text-[hsl(220,20%,70%)]">
                   Sua trilha de aprendizado começa agora! Explore os cursos abaixo e desbloqueie o conhecimento que vai transformar sua jornada.
                 </p>
-                <div className="mt-1 flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
-                  <Star className="h-4 w-4" />
+                <div className="mt-1 flex items-center gap-2 rounded-full bg-[hsl(262,83%,58%,0.15)] px-5 py-2.5 text-sm font-medium text-[hsl(262,83%,80%)] ring-1 ring-[hsl(262,83%,58%,0.2)]">
+                  <Star className="h-4 w-4 text-[hsl(38,92%,60%)]" />
                   Escolha seu primeiro curso e comece hoje
                 </div>
               </div>
