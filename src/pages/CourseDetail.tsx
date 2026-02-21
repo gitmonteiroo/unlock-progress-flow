@@ -80,7 +80,12 @@ const CourseDetail = () => {
             <Accordion key={module.id} type="single" collapsible defaultValue={mi === 0 ? module.id : undefined}>
               <AccordionItem value={module.id} className="rounded-lg border border-border bg-card px-4">
                 <AccordionTrigger className="font-display text-base font-semibold text-foreground hover:no-underline">
-                  Módulo {mi + 1}: {module.title}
+                  <div className="flex items-center gap-3">
+                    {module.image_url && (
+                      <img src={module.image_url} alt={module.title} className="h-10 w-10 rounded-lg object-cover" />
+                    )}
+                    <span>Módulo {mi + 1}: {module.title}</span>
+                  </div>
                 </AccordionTrigger>
                 <AccordionContent>
                   <div className="space-y-1 pb-2">

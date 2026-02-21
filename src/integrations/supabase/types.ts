@@ -134,6 +134,7 @@ export type Database = {
           course_id: string
           created_at: string
           id: string
+          image_url: string | null
           sort_order: number
           title: string
         }
@@ -141,6 +142,7 @@ export type Database = {
           course_id: string
           created_at?: string
           id?: string
+          image_url?: string | null
           sort_order?: number
           title: string
         }
@@ -148,6 +150,7 @@ export type Database = {
           course_id?: string
           created_at?: string
           id?: string
+          image_url?: string | null
           sort_order?: number
           title?: string
         }
