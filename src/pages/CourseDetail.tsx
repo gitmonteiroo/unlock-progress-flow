@@ -136,18 +136,17 @@ const CourseDetail = () => {
                     Exclusivo para alunos
                   </div>
                   <h3 className="mb-2 font-display text-xl font-bold text-foreground md:text-2xl">
-                    🚀 Conteúdos Avançados
+                    🚀 Acelere seus resultados agora
                   </h3>
                   <p className="max-w-lg text-sm leading-relaxed text-muted-foreground">
-                    Acelere seus resultados com templates profissionais prontos e estratégias de tráfego pago simplificadas. 
-                    {!ownsUpsell && " Desbloqueie agora e saia na frente."}
+                    Use templates que vendem + tráfego pago simplificado para avançar mais rápido.
                   </p>
                   {!ownsUpsell && (
                     <div className="mt-4">
                       <Link to="/upsell-avancado">
                         <Button className="gap-2 shadow-lg shadow-primary/20">
-                          <Unlock className="h-4 w-4" />
-                          Desbloquear por apenas R$37,00
+                          <Lock className="h-4 w-4" />
+                          👉 Desbloqueie agora por apenas R$ 27,90
                         </Button>
                       </Link>
                     </div>
