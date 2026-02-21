@@ -6,7 +6,7 @@ import { getUserCourses, getAllCourses } from "@/lib/supabase-helpers";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Lock, Play } from "lucide-react";
-import cursoNegocioDigitalBanner from "@/assets/curso-negocio-digital-banner.jpg";
+import negocioDigitalBanner from "@/assets/negocio-digital-banner.png";
 
 const Courses = () => {
   const { user } = useAuth();
@@ -44,7 +44,7 @@ const Courses = () => {
                 {course.is_entry_course && (
                   <div className="relative h-40 w-full overflow-hidden">
                     <img
-                      src={course.image_url || cursoNegocioDigitalBanner}
+                      src={course.image_url || negocioDigitalBanner}
                       alt={course.title}
                       className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />
