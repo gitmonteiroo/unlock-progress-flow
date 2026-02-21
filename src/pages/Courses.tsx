@@ -19,7 +19,7 @@ const courseBannerMap: Record<string, string> = {
   "Organização Financeira do Zero": bannerFinanceiro,
   "Sistema de Alta Produtividade Digital": bannerProdutividade,
   "Desbloqueio de Conteúdos Avançados": bannerAvancado,
-  "Inteligência Emocional Aplicada": bannerEmocional,
+  "Relacionamentos Conscientes": bannerEmocional,
   "Marketing Prático para Negócios Reais": bannerMarketing,
   "Hobbies Lucrativos & Vida Prática": bannerHobbies,
 };
