@@ -42,7 +42,7 @@ const Courses = () => {
               <Card key={course.id} className="group relative overflow-hidden border-border bg-card transition-all hover:border-primary/30">
                 {/* Course Banner - only for entry course */}
                 {course.is_entry_course && (
-                  <div className="relative h-40 w-full overflow-hidden">
+                  <div className="relative h-52 w-full overflow-hidden">
                     <img
                       src={course.image_url || negocioDigitalBanner}
                       alt={course.title}
