@@ -115,10 +115,8 @@ const Lesson = () => {
               <p className="text-sm font-medium text-foreground">Material complementar (eBook)</p>
               <p className="text-xs text-muted-foreground">PDF disponível para download</p>
             </div>
-            <Button variant="outline" size="sm" asChild>
-              <a href={lesson.pdf_url} target="_blank" rel="noopener noreferrer" download>
+            <Button variant="outline" size="sm" onClick={() => window.open(lesson.pdf_url, '_blank')}>
                 Baixar PDF
-              </a>
             </Button>
           </div>
         )}
