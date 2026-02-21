@@ -9,6 +9,22 @@ import { Progress } from "@/components/ui/progress";
 import { BookOpen, Lock, Play, Trophy, GraduationCap } from "lucide-react";
 import negocioDigitalCover from "@/assets/negocio-digital-cover.png";
 import negocioDigitalBanner from "@/assets/negocio-digital-banner.png";
+import bannerFinanceiro from "@/assets/banner-financeiro.jpg";
+import bannerProdutividade from "@/assets/banner-produtividade.jpg";
+import bannerAvancado from "@/assets/banner-avancado.jpg";
+import bannerEmocional from "@/assets/banner-emocional.jpg";
+import bannerMarketing from "@/assets/banner-marketing.jpg";
+import bannerHobbies from "@/assets/banner-hobbies.jpg";
+
+const courseBannerMap: Record<string, string> = {
+  "Negócio Digital na Prática": negocioDigitalBanner,
+  "Organização Financeira do Zero": bannerFinanceiro,
+  "Sistema de Alta Produtividade Digital": bannerProdutividade,
+  "Desbloqueio de Conteúdos Avançados": bannerAvancado,
+  "Inteligência Emocional Aplicada": bannerEmocional,
+  "Marketing Prático para Negócios Reais": bannerMarketing,
+  "Hobbies Lucrativos & Vida Prática": bannerHobbies,
+};
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -167,16 +183,14 @@ const Dashboard = () => {
               const owned = purchasedIds.has(course.id);
               return (
                 <Card key={course.id} className={`overflow-hidden border-border bg-card transition-all hover:border-primary/30 ${!owned ? "opacity-75" : ""}`}>
-                  {course.is_entry_course && (
-                    <div className="relative h-52 w-full overflow-hidden">
-                      <img
-                        src={course.image_url || negocioDigitalBanner}
-                        alt={course.title}
-                        className="h-full w-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
-                    </div>
-                  )}
+                  <div className="relative h-52 w-full overflow-hidden">
+                    <img
+                      src={course.image_url || courseBannerMap[course.title] || negocioDigitalBanner}
+                      alt={course.title}
+                      className="h-full w-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
+                  </div>
                   <div className="p-6">
                     <div className="mb-4 flex items-start justify-between">
                       <h3 className="font-display text-lg font-semibold text-foreground">{course.title}</h3>
