@@ -166,27 +166,33 @@ const Lesson = () => {
 
         {/* Upsell Banner */}
         {showUpsell && !ownsUpsell && completed && (
-          <div className="mt-8 overflow-hidden rounded-xl border border-primary/20 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 p-6">
-            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-              <div className="flex items-start gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-                  <Sparkles className="h-5 w-5 text-primary" />
+          <div className="group mt-8 overflow-hidden rounded-xl border border-primary/30 bg-gradient-to-br from-primary/10 via-primary/5 to-accent/10 p-[2px] shadow-lg shadow-primary/5 transition-all hover:shadow-xl hover:shadow-primary/10">
+            <div className="rounded-[11px] bg-card/95 p-6 backdrop-blur-sm">
+              <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+                <div className="flex items-start gap-4">
+                  <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent shadow-md shadow-primary/20">
+                    <Sparkles className="h-6 w-6 text-primary-foreground" />
+                    <div className="absolute -right-1 -top-1 h-3 w-3 animate-pulse rounded-full bg-success shadow-sm shadow-success/50" />
+                  </div>
+                  <div>
+                    <h3 className="font-display text-lg font-bold text-foreground">
+                      🚀 Acelere seus resultados agora
+                    </h3>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      Templates profissionais + Tráfego pago simplificado — tudo por apenas{" "}
+                      <span className="font-semibold text-primary">R$37,00</span>{" "}
+                      <span className="text-xs text-muted-foreground">(pagamento único)</span>
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-display text-base font-semibold text-foreground">
-                    Pronto para o próximo nível?
-                  </h3>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    Desbloqueie templates profissionais e tráfego pago simplificado por apenas R$47,00.
-                  </p>
-                </div>
+                <Link to="/upsell-avancado">
+                  <Button size="lg" className="gap-2 whitespace-nowrap bg-gradient-to-r from-primary to-accent shadow-md shadow-primary/20 transition-transform hover:scale-[1.02]">
+                    <Unlock className="h-4 w-4" />
+                    Desbloquear agora
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
               </div>
-              <Link to="/upsell-avancado">
-                <Button className="gap-2 whitespace-nowrap">
-                  <Unlock className="h-4 w-4" />
-                  Ver conteúdos avançados
-                </Button>
-              </Link>
             </div>
           </div>
         )}
