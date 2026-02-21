@@ -52,7 +52,7 @@ const Courses = () => {
         <p className="mb-8 text-muted-foreground">Explore nossa biblioteca de cursos e desbloqueie novos conhecimentos.</p>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {allCourses.map(course => {
+          {allCourses.filter(course => course.title !== 'Desbloqueio de Conteúdos Avançados').map(course => {
             const owned = purchasedIds.has(course.id);
             return (
               <Card key={course.id} className="group relative overflow-hidden border-border bg-card transition-all hover:border-primary/30">
