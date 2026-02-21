@@ -87,6 +87,7 @@ export type Database = {
       }
       lessons: {
         Row: {
+          attachments: Json | null
           created_at: string
           duration_minutes: number | null
           id: string
@@ -97,6 +98,7 @@ export type Database = {
           video_url: string
         }
         Insert: {
+          attachments?: Json | null
           created_at?: string
           duration_minutes?: number | null
           id?: string
@@ -107,6 +109,7 @@ export type Database = {
           video_url?: string
         }
         Update: {
+          attachments?: Json | null
           created_at?: string
           duration_minutes?: number | null
           id?: string

@@ -5,7 +5,7 @@ import { AppLayout } from "@/components/AppLayout";
 import { supabase } from "@/integrations/supabase/client";
 import { markLessonComplete, getLessonProgress, getUserCourses } from "@/lib/supabase-helpers";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, ArrowRight, ArrowLeft, FileDown, Sparkles, Unlock } from "lucide-react";
+import { CheckCircle, ArrowRight, ArrowLeft, FileDown, Sparkles, Unlock, Download, Image } from "lucide-react";
 import { toast } from "sonner";
 
 const UPSELL_COURSE_ID = "2c9996cd-b0cb-4d9d-a3c3-acb6584bc0ab";
@@ -97,8 +97,8 @@ const Lesson = () => {
         </div>
 
         {/* Video Player */}
-        <div className="mb-6 aspect-video w-full overflow-hidden rounded-xl border border-border bg-card">
-          {lesson.video_url ? (
+        {lesson.video_url ? (
+          <div className="mb-6 aspect-video w-full overflow-hidden rounded-xl border border-border bg-card">
             <iframe
               src={lesson.video_url}
               className="h-full w-full"
@@ -106,12 +106,14 @@ const Lesson = () => {
               allowFullScreen
               title={lesson.title}
             />
-          ) : (
+          </div>
+        ) : lesson.attachments && Array.isArray(lesson.attachments) && lesson.attachments.length > 0 ? null : (
+          <div className="mb-6 aspect-video w-full overflow-hidden rounded-xl border border-border bg-card">
             <div className="flex h-full items-center justify-center text-muted-foreground">
               Vídeo em breve
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
         {/* Lesson Info */}
         <div className="mb-6">
@@ -132,6 +134,50 @@ const Lesson = () => {
             <Button variant="secondary" size="sm" onClick={() => window.open(lesson.pdf_url, '_blank')}>
                 Baixar PDF
             </Button>
+          </div>
+        )}
+
+        {/* Attachments Gallery */}
+        {lesson.attachments && Array.isArray(lesson.attachments) && lesson.attachments.length > 0 && (
+          <div className="mb-6">
+            <div className="mb-3 flex items-center gap-2">
+              <Image className="h-5 w-5 text-primary" />
+              <h2 className="font-display text-lg font-semibold text-foreground">
+                Templates disponíveis ({lesson.attachments.length})
+              </h2>
+            </div>
+            <p className="mb-4 text-sm text-muted-foreground">
+              Clique em qualquer template para baixar. Use nas suas redes sociais e adapte com seu texto.
+            </p>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+              {(lesson.attachments as any[]).map((att: any, idx: number) => (
+                <a
+                  key={idx}
+                  href={att.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  download
+                  className="group relative overflow-hidden rounded-lg border border-border bg-card transition-all hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5"
+                >
+                  <div className="aspect-[9/16] w-full overflow-hidden">
+                    <img
+                      src={att.url}
+                      alt={att.title || `Template ${idx + 1}`}
+                      className="h-full w-full object-cover transition-transform group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100">
+                    <div className="flex w-full items-center gap-2 p-2">
+                      <Download className="h-3.5 w-3.5 text-white" />
+                      <span className="truncate text-xs font-medium text-white">
+                        {att.title || `Template ${idx + 1}`}
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
         )}
 
