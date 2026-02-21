@@ -15,6 +15,7 @@ import bannerAvancado from "@/assets/banner-avancado.jpg";
 import bannerEmocional from "@/assets/banner-emocional.jpg";
 import bannerMarketing from "@/assets/banner-marketing.jpg";
 import bannerHobbies from "@/assets/banner-hobbies.jpg";
+import bannerAirfryer from "@/assets/banner-airfryer.png";
 
 const courseBannerMap: Record<string, string> = {
   "Negócio Digital na Prática": negocioDigitalBanner,
@@ -24,6 +25,7 @@ const courseBannerMap: Record<string, string> = {
   "Relacionamentos Conscientes": bannerEmocional,
   "Marketing Prático para Negócios Locais": bannerMarketing,
   "Hobbies Lucrativos & Vida Prática": bannerHobbies,
+  "Mestre da Airfryer": bannerAirfryer,
 };
 
 const Dashboard = () => {
