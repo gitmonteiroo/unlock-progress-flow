@@ -40,15 +40,17 @@ const Courses = () => {
             const owned = purchasedIds.has(course.id);
             return (
               <Card key={course.id} className="group relative overflow-hidden border-border bg-card transition-all hover:border-primary/30">
-                {/* Course Banner */}
-                <div className="relative h-40 w-full overflow-hidden">
-                  <img
-                    src={course.image_url || cursoNegocioDigitalBanner}
-                    alt={course.title}
-                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
-                </div>
+                {/* Course Banner - only for entry course */}
+                {course.is_entry_course && (
+                  <div className="relative h-40 w-full overflow-hidden">
+                    <img
+                      src={course.image_url || cursoNegocioDigitalBanner}
+                      alt={course.title}
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
+                  </div>
+                )}
                 <div className="relative p-6 pt-3">
                   <div className="mb-3 flex items-center gap-2">
                     {owned ? (
