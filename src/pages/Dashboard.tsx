@@ -19,10 +19,10 @@ import bannerHobbies from "@/assets/banner-hobbies.jpg";
 const courseBannerMap: Record<string, string> = {
   "Negócio Digital na Prática": negocioDigitalBanner,
   "Organização Financeira do Zero": bannerFinanceiro,
-  "Sistema de Alta Produtividade Digital": bannerProdutividade,
+  "Carreira Acelerada": bannerProdutividade,
   "Desbloqueio de Conteúdos Avançados": bannerAvancado,
-  "Inteligência Emocional Aplicada": bannerEmocional,
-  "Marketing Prático para Negócios Reais": bannerMarketing,
+  "Relacionamentos Conscientes": bannerEmocional,
+  "Marketing Prático para Negócios Locais": bannerMarketing,
   "Hobbies Lucrativos & Vida Prática": bannerHobbies,
 };
 
@@ -179,7 +179,7 @@ const Dashboard = () => {
         <div>
           <h2 className="mb-4 font-display text-xl font-semibold text-foreground">Seus Cursos</h2>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {allCourses.map(course => {
+            {allCourses.filter(course => course.title !== 'Desbloqueio de Conteúdos Avançados').map(course => {
               const owned = purchasedIds.has(course.id);
               return (
                 <Card key={course.id} className={`overflow-hidden border-border bg-card transition-all hover:border-primary/30 ${!owned ? "opacity-75" : ""}`}>
