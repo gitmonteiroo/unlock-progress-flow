@@ -126,9 +126,29 @@ const Lesson = () => {
             />
           </div>
         ) : lesson.attachments && Array.isArray(lesson.attachments) && lesson.attachments.length > 0 ? null : (
-          <div className="mb-6 aspect-video w-full overflow-hidden rounded-xl border border-border bg-card">
-            <div className="flex h-full items-center justify-center text-muted-foreground">
-              Vídeo em breve
+          <div className="mb-6 w-full overflow-hidden rounded-xl border border-border bg-gradient-to-br from-primary/20 via-card to-accent/10">
+            <div className="flex flex-col items-center justify-center gap-4 px-6 py-16 text-center">
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 shadow-lg shadow-primary/5">
+                <FileDown className="h-8 w-8 text-primary" />
+              </div>
+              <div>
+                <h3 className="mb-1 font-display text-xl font-bold text-foreground">
+                  📘 Material disponível para download
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Esta aula possui material em PDF. Baixe e estude no seu ritmo.
+                </p>
+              </div>
+              {lesson.pdf_url && (
+                <Button
+                  size="lg"
+                  className="mt-2 gap-2 bg-gradient-to-r from-primary to-accent shadow-md shadow-primary/20 transition-transform hover:scale-[1.02]"
+                  onClick={() => downloadFile(lesson.pdf_url, `${lesson.title}.pdf`)}
+                >
+                  <FileDown className="h-5 w-5" />
+                  👉 CLIQUE AQUI PARA BAIXAR
+                </Button>
+              )}
             </div>
           </div>
         )}
