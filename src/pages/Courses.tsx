@@ -12,6 +12,7 @@ import bannerProdutividade from "@/assets/banner-produtividade.jpg";
 import bannerAvancado from "@/assets/banner-avancado.jpg";
 import bannerEmocional from "@/assets/banner-emocional.jpg";
 import bannerMarketing from "@/assets/banner-marketing.jpg";
+import bannerHobbies from "@/assets/banner-hobbies.jpg";
 
 const courseBannerMap: Record<string, string> = {
   "Negócio Digital na Prática": negocioDigitalBanner,
@@ -20,6 +21,7 @@ const courseBannerMap: Record<string, string> = {
   "Desbloqueio de Conteúdos Avançados": bannerAvancado,
   "Inteligência Emocional Aplicada": bannerEmocional,
   "Marketing Prático para Negócios Reais": bannerMarketing,
+  "Hobbies Lucrativos & Vida Prática": bannerHobbies,
 };
 
 const Courses = () => {
