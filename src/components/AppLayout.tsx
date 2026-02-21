@@ -27,7 +27,7 @@ export const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children })
   }, [user]);
 
   return (
-    <div className="dark flex min-h-screen bg-background">
+    <div className="flex min-h-screen bg-background">
       {/* Desktop Sidebar */}
       <aside className="hidden lg:flex w-64 flex-col border-r border-border bg-card p-6">
         <Link to="/dashboard" className="mb-8 flex items-center gap-2">
