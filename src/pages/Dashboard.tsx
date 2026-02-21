@@ -168,7 +168,7 @@ const Dashboard = () => {
               return (
                 <Card key={course.id} className={`overflow-hidden border-border bg-card transition-all hover:border-primary/30 ${!owned ? "opacity-75" : ""}`}>
                   {course.is_entry_course && (
-                    <div className="relative h-40 w-full overflow-hidden">
+                    <div className="relative h-52 w-full overflow-hidden">
                       <img
                         src={course.image_url || negocioDigitalBanner}
                         alt={course.title}
