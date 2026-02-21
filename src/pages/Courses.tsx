@@ -7,6 +7,20 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Lock, Play } from "lucide-react";
 import negocioDigitalBanner from "@/assets/negocio-digital-banner.png";
+import bannerFinanceiro from "@/assets/banner-financeiro.jpg";
+import bannerProdutividade from "@/assets/banner-produtividade.jpg";
+import bannerAvancado from "@/assets/banner-avancado.jpg";
+import bannerEmocional from "@/assets/banner-emocional.jpg";
+import bannerMarketing from "@/assets/banner-marketing.jpg";
+
+const courseBannerMap: Record<string, string> = {
+  "Negócio Digital na Prática": negocioDigitalBanner,
+  "Organização Financeira do Zero": bannerFinanceiro,
+  "Sistema de Alta Produtividade Digital": bannerProdutividade,
+  "Desbloqueio de Conteúdos Avançados": bannerAvancado,
+  "Inteligência Emocional Aplicada": bannerEmocional,
+  "Marketing Prático para Negócios Reais": bannerMarketing,
+};
 
 const Courses = () => {
   const { user } = useAuth();
@@ -40,17 +54,15 @@ const Courses = () => {
             const owned = purchasedIds.has(course.id);
             return (
               <Card key={course.id} className="group relative overflow-hidden border-border bg-card transition-all hover:border-primary/30">
-                {/* Course Banner - only for entry course */}
-                {course.is_entry_course && (
-                  <div className="relative h-52 w-full overflow-hidden">
-                    <img
-                      src={course.image_url || negocioDigitalBanner}
-                      alt={course.title}
-                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
-                  </div>
-                )}
+                {/* Course Banner */}
+                <div className="relative h-52 w-full overflow-hidden">
+                  <img
+                    src={course.image_url || courseBannerMap[course.title] || negocioDigitalBanner}
+                    alt={course.title}
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
+                </div>
                 <div className="relative p-6 pt-3">
                   <div className="mb-3 flex items-center gap-2">
                     {owned ? (
