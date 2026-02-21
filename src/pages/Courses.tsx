@@ -20,7 +20,7 @@ const courseBannerMap: Record<string, string> = {
   "Sistema de Alta Produtividade Digital": bannerProdutividade,
   "Desbloqueio de Conteúdos Avançados": bannerAvancado,
   "Relacionamentos Conscientes": bannerEmocional,
-  "Marketing Prático para Negócios Reais": bannerMarketing,
+  "Marketing Prático para Negócios Locais": bannerMarketing,
   "Hobbies Lucrativos & Vida Prática": bannerHobbies,
 };
 
