@@ -238,11 +238,11 @@ const Lesson = () => {
           )}
 
           {nextLesson ? (
-            <Button onClick={() => navigate(`/lesson/${nextLesson.id}`)}>
+            <Button variant="secondary" onClick={() => navigate(`/lesson/${nextLesson.id}`)}>
               Próxima Aula <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           ) : (
-            <Button variant="outline" onClick={() => navigate(`/course/${courseId}`)}>
+            <Button variant="secondary" onClick={() => navigate(`/course/${courseId}`)}>
               Voltar ao Curso
             </Button>
           )}
