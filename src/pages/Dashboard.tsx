@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { BookOpen, Lock, Play, Trophy, GraduationCap } from "lucide-react";
 import negocioDigitalCover from "@/assets/negocio-digital-cover.png";
+import negocioDigitalBanner from "@/assets/negocio-digital-banner.png";
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -165,23 +166,35 @@ const Dashboard = () => {
             {allCourses.map(course => {
               const owned = purchasedIds.has(course.id);
               return (
-                <Card key={course.id} className={`border-border bg-card p-6 transition-all hover:border-primary/30 ${!owned ? "opacity-75" : ""}`}>
-                  <div className="mb-4 flex items-start justify-between">
-                    <h3 className="font-display text-lg font-semibold text-foreground">{course.title}</h3>
-                    {!owned && <Lock className="h-5 w-5 shrink-0 text-muted-foreground" />}
-                  </div>
-                  <p className="mb-4 line-clamp-2 text-sm text-muted-foreground">{course.description}</p>
-                  {owned ? (
-                    <Link to={`/course/${course.id}`}>
-                      <Button className="w-full">Continuar</Button>
-                    </Link>
-                  ) : (
-                    <Link to={`/unlock/${course.id}`}>
-                      <Button variant="outline" className="w-full">
-                        Desbloquear - R${Number(course.price).toFixed(2).replace('.', ',')}
-                      </Button>
-                    </Link>
+                <Card key={course.id} className={`overflow-hidden border-border bg-card transition-all hover:border-primary/30 ${!owned ? "opacity-75" : ""}`}>
+                  {course.is_entry_course && (
+                    <div className="relative h-40 w-full overflow-hidden">
+                      <img
+                        src={course.image_url || negocioDigitalBanner}
+                        alt={course.title}
+                        className="h-full w-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
+                    </div>
                   )}
+                  <div className="p-6">
+                    <div className="mb-4 flex items-start justify-between">
+                      <h3 className="font-display text-lg font-semibold text-foreground">{course.title}</h3>
+                      {!owned && <Lock className="h-5 w-5 shrink-0 text-muted-foreground" />}
+                    </div>
+                    <p className="mb-4 line-clamp-2 text-sm text-muted-foreground">{course.description}</p>
+                    {owned ? (
+                      <Link to={`/course/${course.id}`}>
+                        <Button className="w-full">Continuar</Button>
+                      </Link>
+                    ) : (
+                      <Link to={`/unlock/${course.id}`}>
+                        <Button variant="outline" className="w-full">
+                          Desbloquear - R${Number(course.price).toFixed(2).replace('.', ',')}
+                        </Button>
+                      </Link>
+                    )}
+                  </div>
                 </Card>
               );
             })}
