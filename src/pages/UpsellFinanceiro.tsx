@@ -10,11 +10,8 @@ import {
   Lock,
   Unlock,
   Sparkles,
-  DollarSign,
-  TrendingUp,
   BookOpen,
   ShieldCheck,
-  Play,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -79,31 +76,10 @@ const UpsellFinanceiro = () => {
   const contentModules = [
     {
       icon: BookOpen,
-      title: "Curso Completo de Finanças Pessoais",
-      items: [
-        "Organize suas finanças do zero",
-        "Elimine dívidas de forma inteligente",
-        "Crie seu orçamento pessoal à prova de falhas",
-        "Monte sua reserva de emergência",
-      ],
-    },
-    {
-      icon: TrendingUp,
       title: "A Regra dos 90 Dias — Napoleon Hill",
       items: [
-        "Reprograme sua mente para a riqueza",
-        "Os 5 pilares práticos da prosperidade",
-        "Plano de ação de 90 dias comprovado",
-        "Ferramenta prática de declaração de riqueza",
-      ],
-    },
-    {
-      icon: DollarSign,
-      title: "Materiais Complementares",
-      items: [
-        "Planilhas e checklists de controle financeiro",
-        "Guias práticos para o dia a dia",
-        "Material de apoio para consulta rápida",
+        "Vídeo-aula completa: A Regra dos 90 Dias",
+        "E-book: Guia Definitivo para Transformação Financeira",
       ],
     },
   ];
@@ -136,19 +112,7 @@ const UpsellFinanceiro = () => {
           </p>
         </div>
 
-        {/* Video */}
-        <Card className="mb-10 overflow-hidden border-primary/20">
-          <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
-            <iframe
-              src="https://player.vimeo.com/video/1167038922?badge=0&autopause=0&player_id=0"
-              className="absolute inset-0 h-full w-full"
-              frameBorder="0"
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowFullScreen
-              title="Vídeo de apresentação — Organização Financeira"
-            />
-          </div>
-        </Card>
+
 
         {/* Modules Preview */}
         <div className="mb-10 space-y-4">
