@@ -1,43 +1,40 @@
 
 
-# Corrigir Upsell Financeiro: Preço do Curso e Estrutura de Upsell
+# Corrigir Organização Financeira: Remover Conteúdo Duplicado
 
-## Problema
-O preço do curso "Organização Financeira do Zero" foi alterado erroneamente para R$27,90. O correto e R$7,90. O conteudo do video e PDF (Regra dos 90 Dias) deveria ser um **upsell dentro do curso**, nao o curso em si -- igual ao padrao do "Negocio Digital na Pratica" com o "Desbloqueio de Conteudos Avancados".
+## Problema Encontrado
+A aula "A Regra dos 90 Dias - Napoleon Hill" (vídeo + PDF) está duplicada -- ela aparece tanto no **curso principal** "Organização Financeira do Zero" (dentro do módulo "Materiais Complementares") quanto no **curso de upsell** "Conteúdo Extra - Organização Financeira".
 
-## O que sera feito
+Por isso, quando você abre o curso, o conteúdo do upsell aparece misturado com o conteúdo principal, em vez de ficar separado e bloqueado como no "Negócio Digital na Prática".
 
-### 1. Corrigir o preco do curso
-- Atualizar o preco de "Organizacao Financeira do Zero" de volta para **R$7,90**
+## Estrutura Atual (errada)
 
-### 2. Criar curso de upsell no banco de dados
-- Criar um novo curso chamado **"Conteudo Extra - Organizacao Financeira"** (ou similar) com preco de **R$27,90**
-- Criar um modulo dentro desse curso: "A Regra dos 90 Dias - Napoleon Hill"
-- Criar a aula com o video do Vimeo (1167038922) e o PDF ja salvo
+Organização Financeira do Zero:
+- Módulo 1: Finanças Pessoais (1 aula - correto)
+- Módulo 2: Materiais Complementares (2 aulas - ERRADO, tem a Regra dos 90 Dias aqui dentro)
+- Seção de Upsell bloqueada: A Regra dos 90 Dias (correto, mas duplicado)
 
-### 3. Atualizar a pagina CourseDetail
-- Quando o aluno estiver dentro do curso "Organizacao Financeira do Zero", exibir os modulos do upsell financeiro **bloqueados** no final da pagina (mesmo padrao visual do upsell avancado)
-- Mostrar botao "Desbloqueie agora por R$27,90" apontando para `/upsell-financeiro`
+## Estrutura Correta (como será)
 
-### 4. Atualizar UpsellFinanceiro
-- Apontar para o **novo curso de upsell** (nao mais para o curso principal de financas)
-- Manter o video, modulos bloqueados e CTA de compra
+Organização Financeira do Zero:
+- Módulo 1: Finanças Pessoais (1 aula)
+- Módulo 2: Materiais Complementares (1 aula - só materiais)
+- Seção de Upsell bloqueada: A Regra dos 90 Dias - Napoleon Hill (separado, com botão de desbloqueio)
 
-## Resultado esperado
-- Curso "Organizacao Financeira do Zero" volta a custar **R$7,90**
-- Dentro do curso financeiro, aparece a secao de upsell bloqueada com o conteudo da "Regra dos 90 Dias"
-- O aluno pode desbloquear o upsell por **R$27,90** via pagina `/upsell-financeiro`
-- Padrao identico ao que ja funciona no "Negocio Digital na Pratica"
+## O que será feito
 
-## Detalhes Tecnicos
+### 1. Remover a aula duplicada do curso principal
+- Deletar a aula "A Regra dos 90 Dias - Napoleon Hill" que está dentro do módulo "Materiais Complementares" do curso principal
+- Isso faz com que o conteúdo do upsell só exista no curso separado, aparecendo bloqueado no final da página
 
-### Banco de dados
-- `UPDATE courses SET price = 7.90 WHERE title = 'Organizacao Financeira do Zero'`
-- `INSERT INTO courses` -- novo curso de upsell financeiro (price = 27.90, sort_order alto, is_entry_course = false)
-- `INSERT INTO modules` -- modulo para o conteudo Napoleon Hill
-- `INSERT INTO lessons` -- aula com video Vimeo + PDF
+Nenhuma alteração de código é necessária -- o `CourseDetail.tsx` já está correto e carrega os módulos do upsell separadamente. O problema é apenas o dado duplicado no banco.
 
-### Arquivos a editar
-- **`src/pages/CourseDetail.tsx`** -- Adicionar logica para carregar e exibir modulos de upsell quando o curso for o financeiro (mesmo padrao do `ENTRY_COURSE_ID` / `UPSELL_COURSE_ID`)
-- **`src/pages/UpsellFinanceiro.tsx`** -- Atualizar o `FINANCE_COURSE_ID` para apontar para o novo curso de upsell (nao o curso principal)
+## Detalhe Técnico
+
+```sql
+DELETE FROM lessons 
+WHERE id = 'f674bfa7-8b27-482a-8f0a-895b4b114bdc';
+```
+
+Essa é a aula duplicada (Regra dos 90 Dias) dentro do módulo "Materiais Complementares" do curso principal. A versão correta permanece no curso de upsell (id: `54ae49a0`).
 
