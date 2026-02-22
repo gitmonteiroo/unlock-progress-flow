@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
-const FINANCE_COURSE_ID = "90f23720-e01c-4f42-89e4-1a6703f7d3c7";
+const FINANCE_UPSELL_COURSE_ID = "4d2648c5-0775-439d-8347-4456beb88529";
 
 const UpsellFinanceiro = () => {
   const { user } = useAuth();
@@ -32,9 +32,9 @@ const UpsellFinanceiro = () => {
     if (!user) return;
     Promise.all([
       getUserCourses(user.id),
-      getCourseWithModules(FINANCE_COURSE_ID),
+      getCourseWithModules(FINANCE_UPSELL_COURSE_ID),
     ]).then(([uc, { modules }]) => {
-      const owned = uc.some((u: any) => u.course_id === FINANCE_COURSE_ID);
+      const owned = uc.some((u: any) => u.course_id === FINANCE_UPSELL_COURSE_ID);
       setAlreadyOwned(owned);
       if (modules.length > 0 && modules[0].lessons?.length > 0) {
         setFirstLessonId((modules[0].lessons as any[])[0].id);
@@ -53,12 +53,12 @@ const UpsellFinanceiro = () => {
     if (!user) return;
     setPurchasing(true);
     try {
-      await purchaseCourse(user.id, FINANCE_COURSE_ID);
+      await purchaseCourse(user.id, FINANCE_UPSELL_COURSE_ID);
       toast.success("Curso desbloqueado com sucesso!");
       if (firstLessonId) {
         navigate(`/lesson/${firstLessonId}`);
       } else {
-        navigate(`/course/${FINANCE_COURSE_ID}`);
+        navigate(`/course/${FINANCE_UPSELL_COURSE_ID}`);
       }
     } catch {
       toast.error("Erro ao desbloquear. Tente novamente.");
