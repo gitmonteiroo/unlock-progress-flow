@@ -191,7 +191,7 @@ const UpsellAdvanced = () => {
                   </span>
                 </div>
                 <div className="flex items-baseline gap-2">
-                  <span className="font-display text-4xl font-bold text-foreground">R$37,00</span>
+                  <span className="font-display text-4xl font-bold text-foreground">R$27,90</span>
                 </div>
               </div>
               <Button
