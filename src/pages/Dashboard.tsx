@@ -97,9 +97,8 @@ const Dashboard = () => {
           </p>
         </div>
 
-        {/* Welcome Card — only for students without courses */}
-        {!userIsAdmin && userCourses.length === 0 && (
-          <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-[hsl(262,83%,15%)] via-[hsl(262,60%,20%)] to-[hsl(280,70%,12%)]">
+        {/* Welcome Card — always visible */}
+        <Card className="relative overflow-hidden border-0 bg-gradient-to-br from-[hsl(262,83%,15%)] via-[hsl(262,60%,20%)] to-[hsl(280,70%,12%)]">
             {/* Decorative elements */}
             <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-[hsl(262,83%,58%,0.15)] blur-3xl" />
             <div className="absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-[hsl(280,80%,50%,0.1)] blur-3xl" />
@@ -156,7 +155,6 @@ const Dashboard = () => {
               </div>
             </div>
           </Card>
-        )}
 
         {/* BLOCO 1 — Curso Atual */}
         {currentCourse && (
