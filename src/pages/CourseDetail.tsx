@@ -10,6 +10,9 @@ import { CheckCircle, Circle, Play, Lock, Sparkles, Unlock } from "lucide-react"
 const UPSELL_COURSE_ID = "2c9996cd-b0cb-4d9d-a3c3-acb6584bc0ab";
 const ENTRY_COURSE_ID = "776f38e4-90c0-42f1-9472-dd22469fda2a";
 
+const FINANCE_COURSE_ID = "90f23720-e01c-4f42-89e4-1a6703f7d3c7";
+const FINANCE_UPSELL_COURSE_ID = "4d2648c5-0775-439d-8347-4456beb88529";
+
 const CourseDetail = () => {
   const { id } = useParams<{ id: string }>();
   const { user } = useAuth();
@@ -20,6 +23,8 @@ const CourseDetail = () => {
   const [loading, setLoading] = useState(true);
   const [advancedModules, setAdvancedModules] = useState<any[]>([]);
   const [ownsUpsell, setOwnsUpsell] = useState(false);
+  const [financeUpsellModules, setFinanceUpsellModules] = useState<any[]>([]);
+  const [ownsFinanceUpsell, setOwnsFinanceUpsell] = useState(false);
 
   useEffect(() => {
     if (!user || !id) return;
@@ -44,6 +49,14 @@ const CourseDetail = () => {
         setOwnsUpsell(hasUpsell);
         const { modules: advMods } = await getCourseWithModules(UPSELL_COURSE_ID);
         setAdvancedModules(advMods);
+      }
+
+      // If this is the finance course, load finance upsell modules
+      if (id === FINANCE_COURSE_ID) {
+        const hasFinanceUpsell = uc.some((u: any) => u.course_id === FINANCE_UPSELL_COURSE_ID);
+        setOwnsFinanceUpsell(hasFinanceUpsell);
+        const { modules: finMods } = await getCourseWithModules(FINANCE_UPSELL_COURSE_ID);
+        setFinanceUpsellModules(finMods);
       }
 
       setLoading(false);
@@ -194,6 +207,89 @@ const CourseDetail = () => {
                       {!ownsUpsell && (
                         <div className="pb-4 pt-1">
                           <Link to="/upsell-avancado">
+                            <Button size="sm" variant="outline" className="gap-2 border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground">
+                              <Unlock className="h-4 w-4" />
+                              Desbloquear agora
+                            </Button>
+                          </Link>
+                        </div>
+                      )}
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              ))}
+            </div>
+          )}
+
+          {/* Finance Upsell Modules - Locked or Unlocked */}
+          {financeUpsellModules.length > 0 && (
+            <div className="mt-10 animate-fade-in">
+              <div className="relative mb-6 animate-scale-in overflow-hidden rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 via-primary/10 to-accent/5 p-6 md:p-8">
+                <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-primary/10 blur-2xl" />
+                <div className="absolute -bottom-4 -left-4 h-20 w-20 rounded-full bg-accent/10 blur-xl" />
+                <div className="relative">
+                  <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-primary/15 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary">
+                    <Sparkles className="h-3.5 w-3.5" />
+                    Exclusivo para alunos
+                  </div>
+                  <h3 className="mb-2 font-display text-xl font-bold text-foreground md:text-2xl">
+                    🚀 Transforme sua mentalidade financeira
+                  </h3>
+                  <p className="max-w-lg text-sm leading-relaxed text-muted-foreground">
+                    Aplique a Regra dos 90 Dias de Napoleon Hill e reprograme sua mente para a riqueza.
+                  </p>
+                  {!ownsFinanceUpsell && (
+                    <div className="mt-4">
+                      <Link to="/upsell-financeiro">
+                        <Button className="gap-2 shadow-lg shadow-primary/20">
+                          <Lock className="h-4 w-4" />
+                          👉 Desbloqueie agora por apenas R$ 27,90
+                        </Button>
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {financeUpsellModules.map((module: any) => (
+                <Accordion key={module.id} type="single" collapsible>
+                  <AccordionItem value={module.id} className={`mb-2 rounded-lg border px-4 ${ownsFinanceUpsell ? 'border-border bg-card' : 'border-primary/10 bg-gradient-to-r from-card to-primary/[0.02]'}`}>
+                    <AccordionTrigger className="font-display text-base font-semibold text-foreground hover:no-underline">
+                      <div className="flex items-center gap-2">
+                        {!ownsFinanceUpsell ? (
+                          <Lock className="h-4 w-4 text-primary/60" />
+                        ) : (
+                          <Sparkles className="h-4 w-4 text-primary" />
+                        )}
+                        {module.title}
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <div className="space-y-1 pb-2">
+                        {(module.lessons || []).map((lesson: any, li: number) => (
+                          ownsFinanceUpsell ? (
+                            <Link
+                              key={lesson.id}
+                              to={`/lesson/${lesson.id}`}
+                              className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-muted"
+                            >
+                              <Circle className="h-4 w-4 shrink-0 text-muted-foreground" />
+                              <span className="text-foreground">{li + 1}. {lesson.title}</span>
+                            </Link>
+                          ) : (
+                            <div
+                              key={lesson.id}
+                              className="flex items-center gap-3 px-3 py-2.5 text-sm text-muted-foreground opacity-50"
+                            >
+                              <Lock className="h-3.5 w-3.5 shrink-0" />
+                              <span>{li + 1}. {lesson.title}</span>
+                            </div>
+                          )
+                        ))}
+                      </div>
+                      {!ownsFinanceUpsell && (
+                        <div className="pb-4 pt-1">
+                          <Link to="/upsell-financeiro">
                             <Button size="sm" variant="outline" className="gap-2 border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground">
                               <Unlock className="h-4 w-4" />
                               Desbloquear agora
