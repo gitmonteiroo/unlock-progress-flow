@@ -18,6 +18,7 @@ import CourseDetail from "./pages/CourseDetail";
 import Lesson from "./pages/Lesson";
 import Unlock from "./pages/Unlock";
 import UpsellAdvanced from "./pages/UpsellAdvanced";
+import UpsellFinanceiro from "./pages/UpsellFinanceiro";
 import Profile from "./pages/Profile";
 import MyProgress from "./pages/MyProgress";
 import Support from "./pages/Support";
@@ -50,6 +51,7 @@ const App = () => (
             <Route path="/lesson/:id" element={<ProtectedRoute><Lesson /></ProtectedRoute>} />
             <Route path="/unlock/:id" element={<ProtectedRoute><Unlock /></ProtectedRoute>} />
             <Route path="/upsell-avancado" element={<ProtectedRoute><UpsellAdvanced /></ProtectedRoute>} />
+            <Route path="/upsell-financeiro" element={<ProtectedRoute><UpsellFinanceiro /></ProtectedRoute>} />
             <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             <Route path="/progress" element={<ProtectedRoute><MyProgress /></ProtectedRoute>} />
             <Route path="/support" element={<ProtectedRoute><Support /></ProtectedRoute>} />
