@@ -1,26 +1,23 @@
 
 
-# Adicionar Descrições Atrativas aos Cursos
+# Corrigir Dashboard: Sempre Exibir o Card de Boas-vindas com Vídeo
 
-## Objetivo
-Inserir uma descrição persuasiva em cada curso da plataforma para criar desejo de compra nos alunos. As descrições aparecem na página de cursos (`/courses`) e na página de desbloqueio (`/unlock`).
+## Problema
+O card de boas-vindas com o vídeo de chamada só aparece para alunos que **não compraram nenhum curso**. Quando o aluno compra um curso, o card desaparece e é substituído pelo bloco "Curso Atual".
 
-## O que será feito
+## Solução
+Remover a condição que esconde o card de boas-vindas. Ele passará a ser exibido **sempre** no topo do dashboard, tanto para alunos quanto para administradores, independente de terem cursos comprados ou não.
 
-Atualizar o campo `description` de cada curso no banco de dados com textos chamativos:
+O bloco "Curso Atual" (com a barra de progresso) continuará aparecendo logo abaixo do card de boas-vindas para quem já tem cursos.
 
-| Curso | Descrição |
-|-------|-----------|
-| **Negócio Digital na Prática** | Aprenda do zero como criar seu negócio online e gerar sua primeira renda na internet — mesmo sem experiência. O passo a passo completo para sair do zero e começar a faturar. |
-| **Organização Financeira do Zero** | Chega de fechar o mês no vermelho! Descubra como organizar suas finanças, eliminar dívidas e começar a construir sua reserva — de forma simples e prática. |
-| **Carreira Acelerada** | Destaque-se no mercado de trabalho e conquiste as melhores oportunidades. Técnicas de produtividade, preparação para entrevistas e estratégias para acelerar sua carreira. |
-| **Marketing Prático para Negócios Locais** | Atraia mais clientes para o seu negócio usando estratégias de marketing digital que realmente funcionam — sem precisar de grandes investimentos. |
-| **Relacionamentos Conscientes** | Transforme a qualidade dos seus relacionamentos. Aprenda a se comunicar melhor, resolver conflitos e construir conexões mais saudáveis e verdadeiras. |
-| **Mestre da Airfryer** | +150 receitas práticas e deliciosas para você dominar a airfryer e surpreender no dia a dia. Economia de tempo, sabor e praticidade na sua cozinha! |
+## Resultado esperado
+- Dashboard sempre mostra o vídeo de boas-vindas no topo
+- Abaixo do vídeo, aparece o curso atual (se houver)
+- Depois, as estatísticas e a lista de cursos
 
 ## Detalhes Técnicos
 
-- **Ação:** 6 comandos `UPDATE` na tabela `courses` para preencher o campo `description`
-- **Nenhuma alteração de código** necessária — a página `/courses` já exibe `course.description` nos cards
-- O curso "Desbloqueio de Conteúdos Avançados" não será alterado pois já é filtrado da listagem
+Arquivo: `src/pages/Dashboard.tsx`
 
+- Remover a condição `{!userIsAdmin && userCourses.length === 0 && (...)}` que envolve o card de boas-vindas
+- O card passará a ser renderizado incondicionalmente, sempre visível no topo do dashboard
