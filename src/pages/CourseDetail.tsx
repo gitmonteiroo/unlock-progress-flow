@@ -48,13 +48,8 @@ const CourseDetail = () => {
         setAdvancedModules(advMods);
       }
 
-      // If this is the finance course, load finance upsell modules
-      if (id === FINANCE_COURSE_ID) {
-        const hasFinanceUpsell = uc.some((u: any) => u.course_id === FINANCE_UPSELL_COURSE_ID);
-        setOwnsFinanceUpsell(hasFinanceUpsell);
-        const { modules: finMods } = await getCourseWithModules(FINANCE_UPSELL_COURSE_ID);
-        setFinanceUpsellModules(finMods);
-      }
+
+
 
       setLoading(false);
     });
