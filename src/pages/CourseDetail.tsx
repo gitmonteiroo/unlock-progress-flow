@@ -21,8 +21,7 @@ const CourseDetail = () => {
   const [loading, setLoading] = useState(true);
   const [advancedModules, setAdvancedModules] = useState<any[]>([]);
   const [ownsUpsell, setOwnsUpsell] = useState(false);
-  const [financeUpsellModules, setFinanceUpsellModules] = useState<any[]>([]);
-  const [ownsFinanceUpsell, setOwnsFinanceUpsell] = useState(false);
+
 
   useEffect(() => {
     if (!user || !id) return;
