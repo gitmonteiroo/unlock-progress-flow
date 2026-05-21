@@ -10,8 +10,6 @@ import { CheckCircle, Circle, Play, Lock, Sparkles, Unlock } from "lucide-react"
 const UPSELL_COURSE_ID = "2c9996cd-b0cb-4d9d-a3c3-acb6584bc0ab";
 const ENTRY_COURSE_ID = "776f38e4-90c0-42f1-9472-dd22469fda2a";
 
-const FINANCE_COURSE_ID = "90f23720-e01c-4f42-89e4-1a6703f7d3c7";
-const FINANCE_UPSELL_COURSE_ID = "4d2648c5-0775-439d-8347-4456beb88529";
 
 const CourseDetail = () => {
   const { id } = useParams<{ id: string }>();
