@@ -18,7 +18,7 @@ import CourseDetail from "./pages/CourseDetail";
 import Lesson from "./pages/Lesson";
 import Unlock from "./pages/Unlock";
 import UpsellAdvanced from "./pages/UpsellAdvanced";
-import UpsellFinanceiro from "./pages/UpsellFinanceiro";
+
 import Profile from "./pages/Profile";
 import MyProgress from "./pages/MyProgress";
 import Support from "./pages/Support";
