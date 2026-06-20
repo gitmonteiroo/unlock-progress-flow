@@ -8,6 +8,8 @@ import { toast } from "sonner";
 import hubLogo from "@/assets/hub-logo.png";
 
 const COURSE_ID = "776f38e4-90c0-42f1-9472-dd22469fda2a"; // Negócio Digital na Prática
+const COURSE_NAME = "Negócio Digital na Prática";
+const COURSE_PRICE = 7.9;
 
 const Checkout = () => {
   const { user, loading: authLoading } = useAuth();
@@ -21,10 +23,20 @@ const Checkout = () => {
   }, [user, authLoading, navigate]);
 
   const handleCheckout = async () => {
+    if (!user?.email) {
+      toast.error("E-mail do usuário não encontrado.");
+      return;
+    }
     setLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke("create-checkout", {
-        body: { course_id: COURSE_ID },
+        body: {
+          courseId: COURSE_ID,
+          userId: user.id,
+          userEmail: user.email,
+          courseName: COURSE_NAME,
+          coursePrice: COURSE_PRICE,
+        },
       });
       if (error) throw error;
       if (data?.url) {
@@ -64,11 +76,11 @@ const Checkout = () => {
         <div className="rounded-xl border border-border bg-card p-8">
           <div className="mb-6 flex items-start justify-between gap-4">
             <div>
-              <h2 className="mb-2 font-display text-2xl font-bold text-foreground">Negócio Digital na Prática</h2>
+              <h2 className="mb-2 font-display text-2xl font-bold text-foreground">{COURSE_NAME}</h2>
               <p className="text-sm text-muted-foreground">Acesso vitalício ao curso completo</p>
             </div>
             <div className="text-right">
-              <div className="font-display text-3xl font-bold text-foreground">R$7,90</div>
+              <div className="font-display text-3xl font-bold text-foreground">R${COURSE_PRICE.toFixed(2).replace(".", ",")}</div>
               <div className="text-xs text-muted-foreground">pagamento único</div>
             </div>
           </div>
@@ -92,7 +104,7 @@ const Checkout = () => {
 
           <div className="mt-4 flex items-center justify-center gap-2 text-xs text-muted-foreground">
             <ShieldCheck className="h-4 w-4" />
-            Pagamento seguro processado por Stripe
+            Pagamento seguro processado por Mercado Pago
           </div>
         </div>
       </main>
