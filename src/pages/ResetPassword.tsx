@@ -39,7 +39,7 @@ const ResetPassword = () => {
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
             <BookOpen className="h-5 w-5 text-primary-foreground" />
           </div>
-          <span className="font-display text-xl font-bold text-foreground">EduPro</span>
+          <span className="font-display text-xl font-bold text-foreground">Hub Negócios Digitais</span>
         </div>
         <div className="rounded-xl border border-border bg-card p-8">
           <h1 className="mb-2 font-display text-2xl font-bold text-foreground">Nova senha</h1>

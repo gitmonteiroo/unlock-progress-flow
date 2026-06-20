@@ -9,14 +9,14 @@ const Terms = () => (
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
             <BookOpen className="h-5 w-5 text-primary-foreground" />
           </div>
-          <span className="font-display text-xl font-bold text-foreground">EduPro</span>
+          <span className="font-display text-xl font-bold text-foreground">Hub Negócios Digitais</span>
         </Link>
       </div>
     </header>
     <main className="container mx-auto max-w-3xl px-4 py-12">
       <h1 className="mb-6 font-display text-3xl font-bold text-foreground">Termos de Uso</h1>
       <div className="space-y-4 text-muted-foreground">
-        <p>Ao utilizar a plataforma EduPro, você concorda com os seguintes termos:</p>
+        <p>Ao utilizar a plataforma Hub Negócios Digitais, você concorda com os seguintes termos:</p>
         <h2 className="font-display text-xl font-semibold text-foreground">1. Uso da Plataforma</h2>
         <p>A plataforma é destinada ao acesso de cursos digitais adquiridos pelo usuário. O acesso é pessoal e intransferível.</p>
         <h2 className="font-display text-xl font-semibold text-foreground">2. Pagamentos</h2>
