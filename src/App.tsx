@@ -18,6 +18,7 @@ import CourseDetail from "./pages/CourseDetail";
 import Lesson from "./pages/Lesson";
 import Unlock from "./pages/Unlock";
 import UpsellAdvanced from "./pages/UpsellAdvanced";
+import Checkout from "./pages/Checkout";
 
 import Profile from "./pages/Profile";
 import MyProgress from "./pages/MyProgress";
@@ -43,6 +44,7 @@ const App = () => (
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/checkout" element={<Checkout />} />
 
             {/* Protected */}
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
