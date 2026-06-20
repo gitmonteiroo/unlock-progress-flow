@@ -1,0 +1,1 @@
+ALTER TABLE public.user_courses ADD COLUMN IF NOT EXISTS payment_session_id text, ADD COLUMN IF NOT EXISTS payment_provider text;
