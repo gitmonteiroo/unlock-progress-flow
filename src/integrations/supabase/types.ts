@@ -195,18 +195,24 @@ export type Database = {
         Row: {
           course_id: string
           id: string
+          payment_provider: string | null
+          payment_session_id: string | null
           purchased_at: string
           user_id: string
         }
         Insert: {
           course_id: string
           id?: string
+          payment_provider?: string | null
+          payment_session_id?: string | null
           purchased_at?: string
           user_id: string
         }
         Update: {
           course_id?: string
           id?: string
+          payment_provider?: string | null
+          payment_session_id?: string | null
           purchased_at?: string
           user_id?: string
         }
